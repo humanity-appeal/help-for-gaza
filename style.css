@@ -309,6 +309,53 @@ body {
     margin-top: 0.5rem;
 }
 
+/* Urgent Alert Button */
+.urgent-alert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+    color: white;
+    padding: 1.2rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.urgent-alert-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+.urgent-alert-btn:active {
+    transform: translateY(-1px);
+}
+
+.urgent-alert-btn i:last-child {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .urgent-alert-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        gap: 0.6rem;
+    }
+    
+    .urgent-alert-btn span {
+        text-align: center;
+    }
+}
+
 /* Bengali Digits */
 .bengali-digits {
     font-family: 'Hind Siliguri', sans-serif;
