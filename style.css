@@ -482,8 +482,8 @@ body {
     border-radius: 16px;
     text-decoration: none;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
-    background: var(--bg);
+    border: 2px solid;
+    background: #ffffff;
     box-shadow: var(--shadow);
     min-height: 120px;
 }
@@ -521,30 +521,12 @@ body {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--text);
-    transition: color 0.3s ease;
+    color: #1f2937;
 }
 
 .btn-subtitle {
     font-size: 1rem;
-    color: var(--text-light);
-    transition: color 0.3s ease;
-}
-
-.donation-note {
-    background: var(--primary);
-    color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.donation-note i {
-    font-size: 1.5rem;
+    color: #6b7280;
 }
 
 /* Impact Section */
