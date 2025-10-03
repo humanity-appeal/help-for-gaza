@@ -1,52 +1,53 @@
-/* Remove unused styles and optimize existing ones */
-
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary: #dc2626;
-    --accent: #16a34a;
-    --text: #1f2937;
-    --text-light: #6b7280;
-    --bg: #ffffff;
-    --bg-light: #f8fafc;
-    --bg-dark: #1e293b;
-    --border: #e5e7eb;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+/* Bengali Digits */
+.bengali-digits {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-feature-settings: "numr";
+    font-variant-numeric: numeric;
 }
 
-/* Base styles remain the same but optimized */
-/* ... (keep essential base styles from previous version) ... */
-
-/* Simplified Donation Section */
-.donation-simple {
-    padding: 80px 0;
-    background: var(--bg-light);
+/* Header Color Contrast Optimization */
+.tagline {
+    font-size: 0.8rem;
+    color: #1f2937; /* Dark color for better contrast */
+    font-weight: 500;
 }
 
+/* Hero Background with Image */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://images.pexels.com/photos/18854038/pexels-photo-18854038/free-photo-of-anti-war-banner-at-protest-about-palestine.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Simplified Payment Section */
 .simple-payment-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    max-width: 700px;
-    margin: 0 auto 2rem;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
 }
 
 .simple-btn {
     display: flex;
     align-items: center;
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 2rem;
+    border-radius: 16px;
     text-decoration: none;
     transition: all 0.3s ease;
     border: 2px solid transparent;
     background: var(--bg);
     box-shadow: var(--shadow);
+    min-height: 120px;
 }
 
 .simple-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
@@ -56,6 +57,7 @@
 
 .bkash-simple:hover {
     background: #fdf2f8;
+    border-color: #e2136e;
 }
 
 .nagad-simple {
@@ -64,18 +66,19 @@
 
 .nagad-simple:hover {
     background: #fef6ee;
+    border-color: #f15a29;
 }
 
 .btn-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background: var(--gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1rem;
-    font-size: 1.5rem;
+    margin-right: 1.5rem;
+    font-size: 1.8rem;
     color: white;
     flex-shrink: 0;
 }
@@ -85,65 +88,24 @@
 }
 
 .btn-title {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text);
 }
 
 .btn-number {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
     font-family: 'Hind Siliguri', monospace;
 }
 
-.donation-note {
-    background: var(--primary);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: left;
+/* Remove old payment styles if they exist */
+.payment-methods,
+.payment-card,
+.payment-header,
+.payment-info,
+.payment-steps {
+    display: none;
 }
-
-.donation-note i {
-    font-size: 1.2rem;
-    flex-shrink: 0;
-}
-
-/* Bengali Digits */
-.bengali-digits {
-    font-family: 'Hind Siliguri', sans-serif;
-    font-feature-settings: "numr";
-    font-variant-numeric: numeric;
-}
-
-/* Optimize animations */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Remove complex floating elements for performance */
-.floating-elements {
-    display: none; /* Remove for better performance */
-}
-
-/* Optimize hero background */
-.hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), #667eea;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Remove if still slow */
-}
-
-/* Keep other essential styles but remove complex animations */
-/* ... (rest of the essential styles) ... */
