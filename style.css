@@ -192,7 +192,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/18854038/pexels-photo-18854038/free-photo-of-anti-war-banner-at-protest-about-palestine.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/hero-banner.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -498,8 +498,13 @@ body {
 }
 
 .bkash-simple:hover {
-    background: #fdf2f8;
+    background: #e2136e;
     border-color: #e2136e;
+}
+
+.bkash-simple:hover .btn-title,
+.bkash-simple:hover .btn-subtitle {
+    color: white;
 }
 
 .nagad-simple {
@@ -507,8 +512,13 @@ body {
 }
 
 .nagad-simple:hover {
-    background: #fef6ee;
+    background: #f15a29;
     border-color: #f15a29;
+}
+
+.nagad-simple:hover .btn-title,
+.nagad-simple:hover .btn-subtitle {
+    color: white;
 }
 
 .payment-logo-img {
@@ -532,13 +542,13 @@ body {
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text);
+    transition: color 0.3s ease;
 }
 
-.btn-number {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--primary);
-    font-family: 'Hind Siliguri', monospace;
+.btn-subtitle {
+    font-size: 1rem;
+    color: var(--text-light);
+    transition: color 0.3s ease;
 }
 
 .donation-note {
@@ -771,8 +781,8 @@ body {
         font-size: 1.2rem;
     }
 
-    .btn-number {
-        font-size: 1.1rem;
+    .btn-subtitle {
+        font-size: 0.9rem;
     }
 
     .badge-content {
