@@ -24,20 +24,29 @@ window.addEventListener('scroll', function() {
 // Counter Animation
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 200;
-
+    
     counters.forEach(counter => {
-        const target = +counter.getAttribute('data-count');
-        const count = +counter.innerText.replace(/,/g, '');
-        const increment = target / speed;
-
-        if (count < target) {
-            counter.innerText = Math.ceil(count + increment).toLocaleString('bn-BD');
-            setTimeout(() => animateCounters(), 1);
-        } else {
-            counter.innerText = target.toLocaleString('bn-BD');
-        }
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = formatNumber(target);
+                clearInterval(timer);
+            } else {
+                counter.textContent = formatNumber(Math.floor(current));
+            }
+        }, 16);
     });
+}
+
+// Format numbers with Bengali digits
+function formatNumber(num) {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return num.toString().replace(/\d/g, digit => bengaliDigits[digit]);
 }
 
 // Progress Bar Animation
@@ -63,7 +72,7 @@ function animateProgressBar() {
 }
 
 // FAQ Accordion
-document.addEventListener('DOMContentLoaded', function() {
+function initializeFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
     
     faqItems.forEach(item => {
@@ -81,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             item.classList.toggle('active');
         });
     });
-});
+}
 
 // Partners Slider Animation
 function initializePartnersSlider() {
@@ -102,29 +111,14 @@ function scrollToDonate() {
     });
 }
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize counters and progress bar after a delay
-    setTimeout(() => {
-        animateCounters();
-        animateProgressBar();
-    }, 2000);
-    
-    initializePartnersSlider();
-    
-    // Add click event to urgent alert button
-    const urgentAlertBtn = document.querySelector('.urgent-alert-btn');
-    if (urgentAlertBtn) {
-        urgentAlertBtn.addEventListener('click', scrollToDonate);
-    }
-    
-    // Mobile menu functionality
+// Mobile Menu Functionality
+function initializeMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', function() {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.classList.toggle('show');
         });
     }
     
@@ -133,38 +127,37 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinksArray.forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
-                navLinks.style.display = 'none';
+                navLinks.classList.remove('show');
             }
         });
     });
-});
+}
 
 // Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+function initializeAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', function() {
+    // Observe elements for animation
     const animateElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .testimonial-card');
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
+        el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-});
+}
 
 // Real-time collection amount update (simulated)
 function simulateRealTimeDonations() {
@@ -173,10 +166,16 @@ function simulateRealTimeDonations() {
     
     // Simulate new donations every 30 seconds
     setInterval(() => {
-        const randomDonation = Math.floor(Math.random() * 100) + 10;
+        const randomDonation = Math.floor(Math.random() * 50) + 10;
         currentAmount += randomDonation;
+        
+        // Ensure we don't exceed target
+        if (currentAmount > 500000) {
+            currentAmount = 500000;
+        }
+        
         collectionAmount.setAttribute('data-count', currentAmount);
-        collectionAmount.textContent = currentAmount.toLocaleString('bn-BD');
+        collectionAmount.textContent = formatNumber(currentAmount);
         
         // Update progress bar
         const targetAmount = 500000;
@@ -189,22 +188,72 @@ function simulateRealTimeDonations() {
     }, 30000);
 }
 
-// Start real-time donation simulation
-setTimeout(simulateRealTimeDonations, 5000);
-
-// Add smooth scrolling for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+// Smooth scrolling for all anchor links
+function initializeSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMobileMenu();
+    initializeSmoothScrolling();
+    initializeFAQ();
+    initializePartnersSlider();
+    initializeAnimations();
+    
+    // Initialize counters and progress bar after a delay
+    setTimeout(() => {
+        animateCounters();
+        animateProgressBar();
+    }, 1000);
+    
+    // Start real-time donation simulation after 5 seconds
+    setTimeout(simulateRealTimeDonations, 5000);
+    
+    // Add click event to urgent alert button
+    const urgentAlertBtn = document.querySelector('.urgent-alert-btn');
+    if (urgentAlertBtn) {
+        urgentAlertBtn.addEventListener('click', scrollToDonate);
+    }
 });
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    .crisis-card.animate-in,
+    .trust-item.animate-in,
+    .impact-card.animate-in,
+    .testimonial-card.animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    
+    .nav-links {
+        transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+        
+        .nav-links.show {
+            display: flex;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Enhanced error handling
 window.addEventListener('error', function(e) {
