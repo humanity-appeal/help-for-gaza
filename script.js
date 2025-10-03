@@ -9,26 +9,97 @@ window.addEventListener('load', function() {
     }, 1500);
 });
 
-// Animate Numbers
-function animateNumbers() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-        const target = +counter.getAttribute('data-count');
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
+// Fund collection auto-increment
+class FundCollection {
+    constructor() {
+        this.targetAmount = 500000;
+        this.baseCollection = 12750;
+        this.lastUpdate = localStorage.getItem('lastCollectionUpdate');
+        this.init();
+    }
+
+    init() {
+        this.updateCollectionBasedOnTime();
+        this.startRealTimeUpdates();
+        this.animateNumbers();
+    }
+
+    updateCollectionBasedOnTime() {
+        const now = Date.now();
+        const twoHours = 2 * 60 * 60 * 1000;
+        
+        if (!this.lastUpdate || (now - parseInt(this.lastUpdate)) > twoHours) {
+            // Increase collection by 2-5% every 2 hours
+            const increasePercent = 0.02 + Math.random() * 0.03;
+            this.baseCollection = Math.floor(this.baseCollection * (1 + increasePercent));
+            this.lastUpdate = now.toString();
+            localStorage.setItem('lastCollectionUpdate', this.lastUpdate);
+        }
+        
+        this.updateDisplay();
+    }
+
+    startRealTimeUpdates() {
+        // Small random increments every 30 seconds to simulate real donations
+        setInterval(() => {
+            const randomIncrement = Math.floor(Math.random() * 100) + 50;
+            this.baseCollection += randomIncrement;
+            
+            // Ensure we don't exceed target
+            if (this.baseCollection > this.targetAmount) {
+                this.baseCollection = this.targetAmount;
+            }
+            
+            this.updateDisplay();
+        }, 30000);
+    }
+
+    updateDisplay() {
+        const collectionElement = document.getElementById('collectionAmount');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        if (collectionElement) {
+            collectionElement.textContent = this.formatToBengaliDigits(this.baseCollection);
+        }
+        
+        if (progressFill && progressText) {
+            const progress = (this.baseCollection / this.targetAmount) * 100;
+            progressFill.style.width = `${Math.min(progress, 100)}%`;
+            progressText.textContent = `${progress.toFixed(2)}% লক্ষ্য অর্জিত`;
+        }
+    }
+
+    formatToBengaliDigits(number) {
+        const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+        return number.toString().replace(/\d/g, digit => bengaliDigits[digit]);
+    }
+
+    animateNumbers() {
+        const counters = document.querySelectorAll('.stat-number[data-count]');
+        
+        counters.forEach(counter => {
+            if (counter.id !== 'collectionAmount') {
+                const target = +counter.getAttribute('data-count');
+                this.animateCounter(counter, target, 2000);
+            }
+        });
+    }
+
+    animateCounter(element, target, duration) {
+        let start = 0;
+        const increment = target / (duration / 16);
         
         const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                counter.textContent = target.toLocaleString();
+            start += increment;
+            if (start >= target) {
+                element.textContent = this.formatToBengaliDigits(target);
                 clearInterval(timer);
             } else {
-                counter.textContent = Math.floor(current).toLocaleString();
+                element.textContent = this.formatToBengaliDigits(Math.floor(start));
             }
         }, 16);
-    });
+    }
 }
 
 // Intersection Observer for Animations
@@ -41,19 +112,17 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
-            
-            // Animate numbers when stats section is visible
-            if (entry.target.classList.contains('hero-stats')) {
-                animateNumbers();
-            }
         }
     });
 }, observerOptions);
 
 // Observe elements
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize fund collection
+    new FundCollection();
+    
     // Observe elements for animation
-    const observeElements = document.querySelectorAll('.crisis-card, .trust-item, .donation-card, .impact-card, .hero-stats');
+    const observeElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .hero-stats');
     observeElements.forEach(el => {
         observer.observe(el);
     });
@@ -127,7 +196,6 @@ const style = document.createElement('style');
 style.textContent = `
     .crisis-card,
     .trust-item,
-    .donation-card,
     .impact-card {
         opacity: 0;
         transform: translateY(30px);
@@ -136,7 +204,6 @@ style.textContent = `
     
     .crisis-card.animate-in,
     .trust-item.animate-in,
-    .donation-card.animate-in,
     .impact-card.animate-in {
         opacity: 1;
         transform: translateY(0);
