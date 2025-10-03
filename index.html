@@ -1,122 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help For Gaza - Emergency Relief Fund</title>
+    <title>গাজা সাহায্য - জরুরী ত্রাণ তহবিল</title>
+    <meta name="description" content="গাজায় মানবিক সাহায্য প্রদানে বাংলাদেশ থেকে জরুরী ত্রাণ তহবিল">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="heart"></div>
+            <p>লোড হচ্ছে...</p>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <h1 class="logo">Help For Gaza</h1>
-            <p class="tagline">Emergency Relief Fund from Bangladesh</p>
-        </div>
+        <nav class="nav container">
+            <div class="logo-section">
+                <div class="logo">গাজা সাহায্য</div>
+                <span class="tagline">বাংলাদেশ থেকে জরুরী ত্রাণ তহবিল</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">হোম</a>
+                <a href="#about" class="nav-link">সম্পর্কে</a>
+                <a href="#donate" class="nav-link">দান করুন</a>
+                <a href="#impact" class="nav-link">প্রভাব</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="floating-elements">
+                <div class="floating-element el1">❤️</div>
+                <div class="floating-element el2">🤲</div>
+                <div class="floating-element el3">🕊️</div>
+                <div class="floating-element el4">🌍</div>
+            </div>
+        </div>
         <div class="container">
             <div class="hero-content">
-                <h1>Your Support Can Save Lives in Gaza</h1>
+                <div class="hero-badge">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    জরুরী সাহায্য অভিযান
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">গাজার নিরীহ মানুষের</span>
+                    <span class="title-line highlight">জীবন বাঁচান</span>
+                </h1>
                 <p class="hero-description">
-                    Every day, innocent families in Gaza face unimaginable challenges. 
-                    Children go to sleep hungry, families lack basic medical care, and 
-                    hope seems distant. Your contribution can bring relief, comfort, 
-                    and most importantly, hope to those who need it most.
+                    প্রতিদিন, গাজায় হাজারো পরিবার মানবিক সংকটের মুখোমুখি হচ্ছে। শিশুরা ক্ষুধার্ত, পরিবারগুলোর মৌলিক চিকিৎসা সেবা থেকে বঞ্চিত, এবং আশার আলো ম্লান হয়ে যাচ্ছে। আপনার সামান্য অবদানই তাদের জীবনে নিয়ে আসতে পারে স্বস্তি, সান্ত্বনা এবং নতুন আশা।
                 </p>
+                
                 <div class="urgent-alert">
-                    <span>🚨 URGENT: Your immediate help is needed</span>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>জরুরী: আপনার তাৎক্ষণিক সাহায্য প্রয়োজন</span>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50000">0</div>
+                        <div class="stat-label">লক্ষ্য (টাকা)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="12750">0</div>
+                        <div class="stat-label">সংগৃহীত (টাকা)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="25">0</div>
+                        <div class="stat-label">দিন বাকি</div>
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                    <div class="progress-text">২৫% লক্ষ্য অর্জিত</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Crisis Situation -->
-    <section class="crisis">
+    <!-- Crisis Section -->
+    <section class="crisis" id="about">
         <div class="container">
-            <h2>The Reality in Gaza</h2>
+            <div class="section-header">
+                <h2>গাজায় বর্তমান পরিস্থিতি</h2>
+                <p>মানবিক সংকটের ভয়াবহ রূপ</p>
+            </div>
+            
             <div class="crisis-grid">
-                <div class="crisis-item">
-                    <div class="icon">🏠</div>
-                    <h3>Homes Destroyed</h3>
-                    <p>Thousands of families have lost their homes and shelters</p>
+                <div class="crisis-card">
+                    <div class="crisis-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>বাড়িঘর ধ্বংস</h3>
+                    <p>হাজারো পরিবার তাদের বাসস্থান হারিয়েছে, রাস্তায় বসবাস করছে</p>
+                    <div class="crisis-number">১০,০০০+</div>
                 </div>
-                <div class="crisis-item">
-                    <div class="icon">🍞</div>
-                    <h3>Food Shortage</h3>
-                    <p>Basic necessities are becoming increasingly scarce</p>
+
+                <div class="crisis-card">
+                    <div class="crisis-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3>খাদ্য সংকট</h3>
+                    <p>মৌলিক খাদ্য সামগ্রীর মারাত্মক অভাব, শিশুরা অপুষ্টির শিকার</p>
+                    <div class="crisis-number">৮৫%</div>
                 </div>
-                <div class="crisis-item">
-                    <div class="icon">🏥</div>
-                    <h3>Medical Crisis</h3>
-                    <p>Hospitals are overwhelmed with limited supplies</p>
+
+                <div class="crisis-card">
+                    <div class="crisis-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>চিকিৎসা সংকট</h3>
+                    <p>হাসপাতালে ওষুধ ও সরঞ্জামের অভাব, জরুরী রোগীদের চিকিৎসা ব্যাহত</p>
+                    <div class="crisis-number">৭০%</div>
                 </div>
-                <div class="crisis-item">
-                    <div class="icon">👶</div>
-                    <h3>Children Suffering</h3>
-                    <p>Innocent children bear the heaviest burden</p>
+
+                <div class="crisis-card">
+                    <div class="crisis-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3>শিশুদের দুর্ভোগ</h3>
+                    <p>নিরীহ শিশুরা মানসিক আঘাত সহ্য করছে, শিক্ষা ও ভবিষ্যত অনিশ্চিত</p>
+                    <div class="crisis-number">৫০%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <div class="section-header">
+                <h2>আমাদের প্রতি বিশ্বাস</h2>
+                <p>স্বচ্ছতা ও জবাবদিহিতার সাথে কাজ করছি</p>
+            </div>
+            
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>১০০% স্বচ্ছ</h3>
+                    <p>প্রতিটি টাকার হিসাব আমরা প্রকাশ করি</p>
+                </div>
+
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h3>নিয়মিত রিপোর্ট</h3>
+                    <p>সাপ্তাহিক সাহায্য বিতরণ রিপোর্ট</p>
+                </div>
+
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>স্থানীয় অংশীদার</h3>
+                    <p>গাজায় আমাদের বিশ্বস্ত অংশীদার সংস্থা</p>
+                </div>
+
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>যাচাইকৃত</h3>
+                    <p>বাংলাদেশের সংশ্লিষ্ট কর্তৃপক্ষের নিবন্ধন</p>
+                </div>
+            </div>
+
+            <div class="verification-badge">
+                <div class="badge-content">
+                    <i class="fas fa-certificate"></i>
+                    <div>
+                        <h4>যাচাইকৃত ত্রাণ সংস্থা</h4>
+                        <p>বাংলাদেশ থেকে অনুমোদিত মানবিক সাহায্য কার্যক্রম</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Donation Section -->
-    <section class="donation">
+    <section class="donation" id="donate">
         <div class="container">
-            <h2>Make a Difference Today</h2>
-            <p class="donation-subtitle">Choose your preferred payment method to contribute</p>
-            
-            <div class="payment-methods">
-                <div class="payment-card">
-                    <div class="payment-logo">bKash</div>
-                    <p>Send your contribution via bKash</p>
-                    <a href="tel:*247#" class="donate-btn">Donate via bKash</a>
-                    <p class="payment-number"><strong>Number: </strong>[Your bKash Number]</p>
+            <div class="section-header">
+                <h2>অবদান রাখুন</h2>
+                <p>আপনার দান আজই একটি জীবন বাঁচাতে পারে</p>
+            </div>
+
+            <div class="donation-grid">
+                <div class="donation-card">
+                    <div class="payment-header">
+                        <div class="payment-logo bkash">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>bKash</span>
+                        </div>
+                        <div class="payment-badge">সবচেয়ে জনপ্রিয়</div>
+                    </div>
+                    
+                    <div class="payment-info">
+                        <div class="payment-number">
+                            <i class="fas fa-phone"></i>
+                            <span>01XXXXXXXXX</span>
+                        </div>
+                        <p class="payment-note">উপরের নাম্বারে সরাসরি সেন্ড মানি করুন</p>
+                    </div>
+
+                    <a href="tel:*247%" class="donate-btn bkash-btn">
+                        <i class="fas fa-donate"></i>
+                        এখনই দান করুন bKash এ
+                    </a>
+
+                    <div class="payment-steps">
+                        <h4>কিভাবে দান করবেন:</h4>
+                        <ol>
+                            <li>bKash অ্যাপ খুলুন</li>
+                            <li>"Send Money" এ ক্লিক করুন</li>
+                            <li>উপরের নাম্বারটি দিন</li>
+                            <li>টাকার পরিমাণ লিখে পিন দিয়ে কনফার্ম করুন</li>
+                        </ol>
+                    </div>
                 </div>
-                
-                <div class="payment-card">
-                    <div class="payment-logo nagad">Nagad</div>
-                    <p>Send your contribution via Nagad</p>
-                    <a href="tel:*167#" class="donate-btn nagad-btn">Donate via Nagad</a>
-                    <p class="payment-number"><strong>Number: </strong>[Your Nagad Number]</p>
+
+                <div class="donation-card">
+                    <div class="payment-header">
+                        <div class="payment-logo nagad">
+                            <i class="fas fa-wallet"></i>
+                            <span>Nagad</span>
+                        </div>
+                        <div class="payment-badge">দ্রুত ও সহজ</div>
+                    </div>
+                    
+                    <div class="payment-info">
+                        <div class="payment-number">
+                            <i class="fas fa-phone"></i>
+                            <span>01XXXXXXXXX</span>
+                        </div>
+                        <p class="payment-note">উপরের নাম্বারে সরাসরি সেন্ড মানি করুন</p>
+                    </div>
+
+                    <a href="tel:*167%" class="donate-btn nagad-btn">
+                        <i class="fas fa-donate"></i>
+                        এখনই দান করুন Nagad এ
+                    </a>
+
+                    <div class="payment-steps">
+                        <h4>কিভাবে দান করবেন:</h4>
+                        <ol>
+                            <li>Nagad অ্যাপ খুলুন</li>
+                            <li>"Send Money" সিলেক্ট করুন</li>
+                            <li>উপরের নাম্বারটি দিন</li>
+                            <li>টাকার পরিমাণ লিখে কনফার্ম করুন</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
 
-            <div class="donation-instructions">
-                <h3>How to Donate:</h3>
-                <ol>
-                    <li>Choose your preferred payment method (bKash or Nagad)</li>
-                    <li>Click the donation button to open your mobile banking app</li>
-                    <li>Send your contribution to the provided number</li>
-                    <li>Every taka counts and will be used for emergency relief</li>
-                </ol>
+            <div class="donation-notice">
+                <i class="fas fa-info-circle"></i>
+                <p>দান করার পর রসিদ সংগ্রহ করে রাখুন। আমাদের ফেসবুক পেজে মেসেজ করে জানাতে পারেন যাতে আমরা আপনাকে আপডেট রাখতে পারি।</p>
             </div>
         </div>
     </section>
 
     <!-- Impact Section -->
-    <section class="impact">
+    <section class="impact" id="impact">
         <div class="container">
-            <h2>Your Impact</h2>
+            <div class="section-header">
+                <h2>আপনার দানের প্রভাব</h2>
+                <p>একটি ছোট দানও বিশাল পরিবর্তন আনতে পারে</p>
+            </div>
+
             <div class="impact-grid">
-                <div class="impact-item">
-                    <h3>৳500</h3>
-                    <p>Can provide emergency food for a family for one day</p>
+                <div class="impact-card">
+                    <div class="impact-amount">৳৫০০</div>
+                    <div class="impact-content">
+                        <h3>জরুরী খাদ্য সহায়তা</h3>
+                        <p>একটি পরিবারের ৩ দিনের খাদ্যের ব্যবস্থা</p>
+                        <ul>
+                            <li>চাল, ডাল, তেল</li>
+                            <li>খাবার পানি</li>
+                            <li>জরুরী বিস্কুট</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <h3>৳1,000</h3>
-                    <p>Can supply basic medical supplies for emergency care</p>
+
+                <div class="impact-card">
+                    <div class="impact-amount">৳১,০০০</div>
+                    <div class="impact-content">
+                        <h3>মেডিকেল কিট</h3>
+                        <p>জরুরী চিকিৎসা সামগ্রী</p>
+                        <ul>
+                            <li>ব্যান্ডেজ ও ওষুধ</li>
+                            <li>অ্যান্টিসেপটিক</li>
+                            <li>ব্যথানাশক</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <h3>৳2,500</h3>
-                    <p>Can help provide shelter materials for displaced families</p>
+
+                <div class="impact-card">
+                    <div class="impact-amount">৳২,৫০০</div>
+                    <div class="impact-content">
+                        <h3>শেল্টার সাপোর্ট</h3>
+                        <p>বাস্তুচ্যুত পরিবারের জন্য</p>
+                        <ul>
+                            <li>কম্বল ও বেডশিট</li>
+                            <li>বৃষ্টি থেকে সুরক্ষা</li>
+                            <li>জরুরী বাসস্থান</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <h3>৳5,000</h3>
-                    <p>Can support multiple families with essential supplies</p>
+
+                <div class="impact-card">
+                    <div class="impact-amount">৳৫,০০০</div>
+                    <div class="impact-content">
+                        <h3>পরিবার স্পন্সরশিপ</h3>
+                        <p>একটি পরিবারের ১ মাসের সহায়তা</p>
+                        <ul>
+                            <li>খাদ্য ও পানি</li>
+                            <li>চিকিৎসা সহায়তা</li>
+                            <li>জরুরী প্রয়োজন</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,9 +343,52 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Help For Gaza - Emergency Relief Fund. All donations are dedicated to humanitarian aid in Gaza.</p>
-            <p>Operating from Bangladesh with ❤️ for humanity</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>গাজা সাহায্য</h3>
+                    <p>বাংলাদেশ থেকে গাজায় মানবিক সাহায্য প্রদানের একটি স্বচ্ছ উদ্যোগ। আমরা বিশ্বাস করি প্রতিটি মানুষের সাহায্য পাওয়ার অধিকার আছে।</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>দ্রুত লিংক</h4>
+                    <ul>
+                        <li><a href="#home">হোম</a></li>
+                        <li><a href="#about">সম্পর্কে</a></li>
+                        <li><a href="#donate">দান করুন</a></li>
+                        <li><a href="#impact">প্রভাব</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>যোগাযোগ</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> helpgaza@email.com</p>
+                        <p><i class="fas fa-phone"></i> +880 XXXX-XXXXXX</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; ২০২৪ গাজা সাহায্য - বাংলাদেশ। সকল অধিকার সংরক্ষিত।</p>
+                <p>মানবতার সেবায় নিবেদিত</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Floating Donate Button -->
+    <div class="floating-donate">
+        <button class="floating-btn" onclick="scrollToDonate()">
+            <i class="fas fa-hand-holding-heart"></i>
+            দান করুন
+        </button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
