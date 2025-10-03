@@ -24,7 +24,10 @@
     <header class="header">
         <nav class="nav container">
             <div class="logo-section">
-                <div class="logo">গাজা সাহায্য</div>
+                <div class="logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Crect width='900' height='600' fill='%23000'/%3E%3Crect width='900' height='400' fill='%23fff'/%3E%3Crect width='900' height='200' fill='%23009'/%3E%3Crect x='300' width='100' height='600' fill='%23d21034'/%3E%3C/svg%3E" alt="Palestine Flag" class="palestine-flag">
+                    গাজা সাহায্য
+                </div>
                 <span class="tagline">বাংলাদেশ থেকে জরুরী ত্রাণ তহবিল</span>
             </div>
             <div class="nav-links">
@@ -41,14 +44,6 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-background">
-            <div class="floating-elements">
-                <div class="floating-element el1">❤️</div>
-                <div class="floating-element el2">🤲</div>
-                <div class="floating-element el3">🕊️</div>
-                <div class="floating-element el4">🌍</div>
-            </div>
-        </div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
@@ -70,22 +65,22 @@
 
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <div class="stat-number" data-count="50000">0</div>
+                        <div class="stat-number bengali-digits" data-count="500000">০</div>
                         <div class="stat-label">লক্ষ্য (টাকা)</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="12750">0</div>
+                        <div class="stat-number bengali-digits" id="collectionAmount" data-count="12750">০</div>
                         <div class="stat-label">সংগৃহীত (টাকা)</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="25">0</div>
+                        <div class="stat-number bengali-digits" data-count="25">০</div>
                         <div class="stat-label">দিন বাকি</div>
                     </div>
                 </div>
 
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 25%"></div>
-                    <div class="progress-text">২৫% লক্ষ্য অর্জিত</div>
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">০% লক্ষ্য অর্জিত</div>
                 </div>
             </div>
         </div>
@@ -106,7 +101,7 @@
                     </div>
                     <h3>বাড়িঘর ধ্বংস</h3>
                     <p>হাজারো পরিবার তাদের বাসস্থান হারিয়েছে, রাস্তায় বসবাস করছে</p>
-                    <div class="crisis-number">১০,০০০+</div>
+                    <div class="crisis-number bengali-digits">১০,০০০+</div>
                 </div>
 
                 <div class="crisis-card">
@@ -115,7 +110,7 @@
                     </div>
                     <h3>খাদ্য সংকট</h3>
                     <p>মৌলিক খাদ্য সামগ্রীর মারাত্মক অভাব, শিশুরা অপুষ্টির শিকার</p>
-                    <div class="crisis-number">৮৫%</div>
+                    <div class="crisis-number bengali-digits">৮৫%</div>
                 </div>
 
                 <div class="crisis-card">
@@ -124,7 +119,7 @@
                     </div>
                     <h3>চিকিৎসা সংকট</h3>
                     <p>হাসপাতালে ওষুধ ও সরঞ্জামের অভাব, জরুরী রোগীদের চিকিৎসা ব্যাহত</p>
-                    <div class="crisis-number">৭০%</div>
+                    <div class="crisis-number bengali-digits">৭০%</div>
                 </div>
 
                 <div class="crisis-card">
@@ -133,7 +128,7 @@
                     </div>
                     <h3>শিশুদের দুর্ভোগ</h3>
                     <p>নিরীহ শিশুরা মানসিক আঘাত সহ্য করছে, শিক্ষা ও ভবিষ্যত অনিশ্চিত</p>
-                    <div class="crisis-number">৫০%</div>
+                    <div class="crisis-number bengali-digits">৫০%</div>
                 </div>
             </div>
         </div>
@@ -193,83 +188,37 @@
         </div>
     </section>
 
-    <!-- Donation Section -->
-    <section class="donation" id="donate">
+    <!-- Simplified Donation Section -->
+    <section class="donation-simple" id="donate">
         <div class="container">
             <div class="section-header">
-                <h2>অবদান রাখুন</h2>
-                <p>আপনার দান আজই একটি জীবন বাঁচাতে পারে</p>
+                <h2>দ্রুত দান করুন</h2>
+                <p>এক ক্লিকে সহজে দান করুন</p>
             </div>
 
-            <div class="donation-grid">
-                <div class="donation-card">
-                    <div class="payment-header">
-                        <div class="payment-logo bkash">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>bKash</span>
-                        </div>
-                        <div class="payment-badge">সবচেয়ে জনপ্রিয়</div>
+            <div class="simple-payment-buttons">
+                <a href="tel:*247%" class="simple-btn bkash-simple">
+                    <div class="payment-logo-img">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Crect width='200' height='60' fill='%23e2136e' rx='10'/%3E%3Ctext x='100' y='35' font-family='Arial' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EbKash%3C/text%3E%3C/svg%3E" alt="bKash">
                     </div>
-                    
-                    <div class="payment-info">
-                        <div class="payment-number">
-                            <i class="fas fa-phone"></i>
-                            <span>01XXXXXXXXX</span>
-                        </div>
-                        <p class="payment-note">উপরের নাম্বারে সরাসরি সেন্ড মানি করুন</p>
+                    <div class="btn-content">
+                        <div class="btn-title">bKash এ দান করুন</div>
+                        <div class="btn-number">01XXXXXXXXX</div>
                     </div>
+                </a>
 
-                    <a href="tel:*247%" class="donate-btn bkash-btn">
-                        <i class="fas fa-donate"></i>
-                        এখনই দান করুন bKash এ
-                    </a>
-
-                    <div class="payment-steps">
-                        <h4>কিভাবে দান করবেন:</h4>
-                        <ol>
-                            <li>bKash অ্যাপ খুলুন</li>
-                            <li>"Send Money" এ ক্লিক করুন</li>
-                            <li>উপরের নাম্বারটি দিন</li>
-                            <li>টাকার পরিমাণ লিখে পিন দিয়ে কনফার্ম করুন</li>
-                        </ol>
+                <a href="tel:*167%" class="simple-btn nagad-simple">
+                    <div class="payment-logo-img">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Crect width='200' height='60' fill='%23f15a29' rx='10'/%3E%3Ctext x='100' y='35' font-family='Arial' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3ENagad%3C/text%3E%3C/svg%3E" alt="Nagad">
                     </div>
-                </div>
-
-                <div class="donation-card">
-                    <div class="payment-header">
-                        <div class="payment-logo nagad">
-                            <i class="fas fa-wallet"></i>
-                            <span>Nagad</span>
-                        </div>
-                        <div class="payment-badge">দ্রুত ও সহজ</div>
+                    <div class="btn-content">
+                        <div class="btn-title">Nagad এ দান করুন</div>
+                        <div class="btn-number">01XXXXXXXXX</div>
                     </div>
-                    
-                    <div class="payment-info">
-                        <div class="payment-number">
-                            <i class="fas fa-phone"></i>
-                            <span>01XXXXXXXXX</span>
-                        </div>
-                        <p class="payment-note">উপরের নাম্বারে সরাসরি সেন্ড মানি করুন</p>
-                    </div>
-
-                    <a href="tel:*167%" class="donate-btn nagad-btn">
-                        <i class="fas fa-donate"></i>
-                        এখনই দান করুন Nagad এ
-                    </a>
-
-                    <div class="payment-steps">
-                        <h4>কিভাবে দান করবেন:</h4>
-                        <ol>
-                            <li>Nagad অ্যাপ খুলুন</li>
-                            <li>"Send Money" সিলেক্ট করুন</li>
-                            <li>উপরের নাম্বারটি দিন</li>
-                            <li>টাকার পরিমাণ লিখে কনফার্ম করুন</li>
-                        </ol>
-                    </div>
-                </div>
+                </a>
             </div>
 
-            <div class="donation-notice">
+            <div class="donation-note">
                 <i class="fas fa-info-circle"></i>
                 <p>দান করার পর রসিদ সংগ্রহ করে রাখুন। আমাদের ফেসবুক পেজে মেসেজ করে জানাতে পারেন যাতে আমরা আপনাকে আপডেট রাখতে পারি।</p>
             </div>
@@ -286,7 +235,7 @@
 
             <div class="impact-grid">
                 <div class="impact-card">
-                    <div class="impact-amount">৳৫০০</div>
+                    <div class="impact-amount bengali-digits">৳৫০০</div>
                     <div class="impact-content">
                         <h3>জরুরী খাদ্য সহায়তা</h3>
                         <p>একটি পরিবারের ৩ দিনের খাদ্যের ব্যবস্থা</p>
@@ -299,7 +248,7 @@
                 </div>
 
                 <div class="impact-card">
-                    <div class="impact-amount">৳১,০০০</div>
+                    <div class="impact-amount bengali-digits">৳১,০০০</div>
                     <div class="impact-content">
                         <h3>মেডিকেল কিট</h3>
                         <p>জরুরী চিকিৎসা সামগ্রী</p>
@@ -312,7 +261,7 @@
                 </div>
 
                 <div class="impact-card">
-                    <div class="impact-amount">৳২,৫০০</div>
+                    <div class="impact-amount bengali-digits">৳২,৫০০</div>
                     <div class="impact-content">
                         <h3>শেল্টার সাপোর্ট</h3>
                         <p>বাস্তুচ্যুত পরিবারের জন্য</p>
@@ -325,7 +274,7 @@
                 </div>
 
                 <div class="impact-card">
-                    <div class="impact-amount">৳৫,০০০</div>
+                    <div class="impact-amount bengali-digits">৳৫,০০০</div>
                     <div class="impact-content">
                         <h3>পরিবার স্পন্সরশিপ</h3>
                         <p>একটি পরিবারের ১ মাসের সহায়তা</p>
