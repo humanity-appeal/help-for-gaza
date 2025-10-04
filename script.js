@@ -1,3 +1,143 @@
+// Persistent Fund Collection System
+class PersistentFundCollection {
+    constructor() {
+        this.targetAmount = 500000;
+        this.baseAmount = 12750; // Starting amount
+        this.storageKey = 'gazaFundData';
+        this.init();
+    }
+
+    init() {
+        this.loadPersistentData();
+        this.updateDisplay();
+        this.startRealTimeUpdates();
+        this.animateNumbers();
+        this.updateDaysCount();
+    }
+
+    loadPersistentData() {
+        const savedData = localStorage.getItem(this.storageKey);
+        
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            
+            // Check if data is from today
+            const today = new Date().toDateString();
+            if (data.date === today) {
+                this.baseAmount = data.amount;
+            } else {
+                // New day - increase amount and save
+                this.increaseAmountForNewDay();
+            }
+        } else {
+            // First time - initialize with base amount
+            this.savePersistentData();
+        }
+    }
+
+    increaseAmountForNewDay() {
+        // Increase by 2-8% daily to simulate real donations
+        const increasePercent = 0.02 + (Math.random() * 0.06);
+        const increaseAmount = Math.floor(this.baseAmount * increasePercent);
+        this.baseAmount += increaseAmount;
+        
+        // Ensure we don't exceed target
+        if (this.baseAmount > this.targetAmount) {
+            this.baseAmount = this.targetAmount;
+        }
+        
+        this.savePersistentData();
+    }
+
+    savePersistentData() {
+        const data = {
+            amount: this.baseAmount,
+            date: new Date().toDateString(),
+            lastUpdated: Date.now()
+        };
+        localStorage.setItem(this.storageKey, JSON.stringify(data));
+    }
+
+    getDaysUntilMonthEnd() {
+        const now = new Date();
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        const diffTime = endOfMonth - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return Math.max(0, diffDays);
+    }
+
+    updateDaysCount() {
+        const daysElement = document.querySelector('[data-count="25"]');
+        if (daysElement) {
+            const daysLeft = this.getDaysUntilMonthEnd();
+            daysElement.setAttribute('data-count', daysLeft);
+        }
+    }
+
+    startRealTimeUpdates() {
+        // Small random increments to simulate real-time donations
+        setInterval(() => {
+            const randomIncrement = Math.floor(Math.random() * 50) + 10;
+            this.baseAmount += randomIncrement;
+            
+            if (this.baseAmount > this.targetAmount) {
+                this.baseAmount = this.targetAmount;
+            }
+            
+            this.savePersistentData();
+            this.updateDisplay();
+        }, 45000); // Every 45 seconds
+    }
+
+    updateDisplay() {
+        const collectionElement = document.getElementById('collectionAmount');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        if (collectionElement) {
+            collectionElement.textContent = this.formatToBengaliDigits(this.baseAmount);
+            collectionElement.setAttribute('data-count', this.baseAmount);
+        }
+        
+        if (progressFill && progressText) {
+            const progress = (this.baseAmount / this.targetAmount) * 100;
+            progressFill.style.width = `${Math.min(progress, 100)}%`;
+            progressText.textContent = `${Math.min(progress, 100).toFixed(1)}% লক্ষ্য অর্জিত`;
+        }
+    }
+
+    formatToBengaliDigits(number) {
+        const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+        return number.toString().replace(/\d/g, digit => bengaliDigits[digit]);
+    }
+
+    animateNumbers() {
+        const counters = document.querySelectorAll('.stat-number[data-count]');
+        
+        counters.forEach(counter => {
+            if (counter.id !== 'collectionAmount') {
+                const target = parseInt(counter.getAttribute('data-count'));
+                this.animateCounter(counter, target, 1500);
+            }
+        });
+    }
+
+    animateCounter(element, target, duration) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.textContent = this.formatToBengaliDigits(target);
+                clearInterval(timer);
+            } else {
+                element.textContent = this.formatToBengaliDigits(Math.floor(start));
+            }
+        }, 16);
+    }
+}
+
 // Loading Screen
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loadingScreen');
@@ -6,7 +146,7 @@ window.addEventListener('load', function() {
         setTimeout(() => {
             loadingScreen.style.display = 'none';
         }, 500);
-    }, 1000);
+    }, 1200);
 });
 
 // Header Scroll Effect
@@ -20,56 +160,6 @@ window.addEventListener('scroll', function() {
         header.style.boxShadow = 'none';
     }
 });
-
-// Counter Animation
-function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 1500;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                counter.textContent = formatNumber(target);
-                clearInterval(timer);
-            } else {
-                counter.textContent = formatNumber(Math.floor(current));
-            }
-        }, 16);
-    });
-}
-
-// Format numbers with Bengali digits
-function formatNumber(num) {
-    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-    return num.toString().replace(/\d/g, digit => bengaliDigits[digit]);
-}
-
-// Progress Bar Animation
-function animateProgressBar() {
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
-    const collectionAmount = document.getElementById('collectionAmount');
-    
-    const targetAmount = 500000;
-    const currentAmount = parseInt(collectionAmount.getAttribute('data-count'));
-    const percentage = (currentAmount / targetAmount) * 100;
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 1;
-        progressFill.style.width = `${progress}%`;
-        progressText.textContent = `${progress}% লক্ষ্য অর্জিত`;
-        
-        if (progress >= percentage) {
-            clearInterval(interval);
-        }
-    }, 15);
-}
 
 // FAQ Accordion
 function initializeFAQ() {
@@ -94,32 +184,24 @@ function initializeFAQ() {
     });
 }
 
-// Partners Slider - Improved seamless loop
+// Partners Slider
 function initializePartnersSlider() {
     const track = document.querySelector('.partners-track');
+    if (!track) return;
+    
     const logos = document.querySelectorAll('.partner-logo');
     
     // Duplicate logos for seamless loop
-    const logosArray = Array.from(logos);
-    logosArray.forEach(logo => {
+    logos.forEach(logo => {
         const clone = logo.cloneNode(true);
         track.appendChild(clone);
     });
     
-    // Reset animation when it completes to create seamless loop
+    // Reset animation when it completes
     track.addEventListener('animationiteration', () => {
         track.style.animation = 'none';
-        void track.offsetWidth; // Trigger reflow
+        void track.offsetWidth;
         track.style.animation = null;
-    });
-    
-    // Pause animation on hover
-    track.addEventListener('mouseenter', () => {
-        track.style.animationPlayState = 'paused';
-    });
-    
-    track.addEventListener('mouseleave', () => {
-        track.style.animationPlayState = 'running';
     });
 }
 
@@ -136,10 +218,9 @@ function initializeMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
-    if (mobileMenuBtn) {
+    if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', function() {
             navLinks.classList.toggle('show');
-            // Toggle icon
             const icon = this.querySelector('i');
             if (navLinks.classList.contains('show')) {
                 icon.classList.remove('fa-bars');
@@ -165,61 +246,6 @@ function initializeMobileMenu() {
     });
 }
 
-// Intersection Observer for animations
-function initializeAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -20px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .testimonial-card, .faq-item');
-    
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        observer.observe(el);
-    });
-}
-
-// Real-time collection amount update (simulated)
-function simulateRealTimeDonations() {
-    const collectionAmount = document.getElementById('collectionAmount');
-    let currentAmount = parseInt(collectionAmount.getAttribute('data-count'));
-    
-    // Simulate new donations every 20 seconds
-    setInterval(() => {
-        const randomDonation = Math.floor(Math.random() * 30) + 5;
-        currentAmount += randomDonation;
-        
-        // Ensure we don't exceed target
-        if (currentAmount > 500000) {
-            currentAmount = 500000;
-        }
-        
-        collectionAmount.setAttribute('data-count', currentAmount);
-        collectionAmount.textContent = formatNumber(currentAmount);
-        
-        // Update progress bar
-        const targetAmount = 500000;
-        const percentage = (currentAmount / targetAmount) * 100;
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        
-        progressFill.style.width = `${percentage}%`;
-        progressText.textContent = `${Math.round(percentage)}% লক্ষ্য অর্জিত`;
-    }, 20000);
-}
-
 // Smooth scrolling for all anchor links
 function initializeSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -238,78 +264,38 @@ function initializeSmoothScrolling() {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize persistent fund collection FIRST
+    window.fundCollection = new PersistentFundCollection();
+    
+    // Initialize other components
     initializeMobileMenu();
     initializeSmoothScrolling();
     initializeFAQ();
     initializePartnersSlider();
-    initializeAnimations();
     
-    // Initialize counters and progress bar
-    setTimeout(() => {
-        animateCounters();
-        animateProgressBar();
-    }, 800);
+    // Add click events to all donate buttons
+    const donateButtons = document.querySelectorAll('.urgent-alert-btn, .floating-btn, .cta-button');
+    donateButtons.forEach(button => {
+        button.addEventListener('click', scrollToDonate);
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     
-    // Start real-time donation simulation
-    setTimeout(simulateRealTimeDonations, 3000);
-    
-    // Add click event to urgent alert button
-    const urgentAlertBtn = document.querySelector('.urgent-alert-btn');
-    if (urgentAlertBtn) {
-        urgentAlertBtn.addEventListener('click', scrollToDonate);
-    }
-    
-    // Add click event to floating donate button
-    const floatingBtn = document.querySelector('.floating-btn');
-    if (floatingBtn) {
-        floatingBtn.addEventListener('click', scrollToDonate);
-    }
-    
-    // Add click event to final CTA button
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton) {
-        ctaButton.addEventListener('click', scrollToDonate);
+    if (window.innerWidth <= 768 && navLinks && navLinks.classList.contains('show')) {
+        if (!event.target.closest('.nav-links') && !event.target.closest('.mobile-menu-btn')) {
+            navLinks.classList.remove('show');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
     }
 });
 
-// Add CSS for animations and mobile optimizations
-const style = document.createElement('style');
-style.textContent = `
-    .crisis-card.animate-in,
-    .trust-item.animate-in,
-    .impact-card.animate-in,
-    .testimonial-card.animate-in,
-    .faq-item.animate-in {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-    
-    .nav-links {
-        transition: all 0.3s ease;
-    }
-    
-    @media (max-width: 768px) {
-        .nav-links {
-            display: none;
-        }
-        
-        .nav-links.show {
-            display: flex;
-        }
-        
-        /* Improve touch targets on mobile */
-        button, a {
-            min-height: 44px;
-        }
-        
-        .payment-btn {
-            min-height: 80px;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Resize handler for mobile optimizations
+// Resize handler
 window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
         const navLinks = document.querySelector('.nav-links');
@@ -323,3 +309,22 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    .nav-links {
+        transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+        
+        .nav-links.show {
+            display: flex;
+        }
+    }
+`;
+document.head.appendChild(style);
