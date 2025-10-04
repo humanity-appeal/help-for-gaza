@@ -94,15 +94,23 @@ function initializeFAQ() {
     });
 }
 
-// Partners Slider - Improved with pause on hover
+// Partners Slider - Improved seamless loop
 function initializePartnersSlider() {
     const track = document.querySelector('.partners-track');
     const logos = document.querySelectorAll('.partner-logo');
     
     // Duplicate logos for seamless loop
-    logos.forEach(logo => {
+    const logosArray = Array.from(logos);
+    logosArray.forEach(logo => {
         const clone = logo.cloneNode(true);
         track.appendChild(clone);
+    });
+    
+    // Reset animation when it completes to create seamless loop
+    track.addEventListener('animationiteration', () => {
+        track.style.animation = 'none';
+        void track.offsetWidth; // Trigger reflow
+        track.style.animation = null;
     });
     
     // Pause animation on hover
@@ -228,14 +236,6 @@ function initializeSmoothScrolling() {
     });
 }
 
-// Touch optimization for mobile
-function initializeTouchOptimization() {
-    // Add touch-friendly classes
-    document.querySelectorAll('button, a').forEach(element => {
-        element.classList.add('touch-optimized');
-    });
-}
-
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
@@ -243,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFAQ();
     initializePartnersSlider();
     initializeAnimations();
-    initializeTouchOptimization();
     
     // Initialize counters and progress bar
     setTimeout(() => {
@@ -265,6 +264,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (floatingBtn) {
         floatingBtn.addEventListener('click', scrollToDonate);
     }
+    
+    // Add click event to final CTA button
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', scrollToDonate);
+    }
 });
 
 // Add CSS for animations and mobile optimizations
@@ -283,11 +288,6 @@ style.textContent = `
         transition: all 0.3s ease;
     }
     
-    .touch-optimized {
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-    
     @media (max-width: 768px) {
         .nav-links {
             display: none;
@@ -300,37 +300,14 @@ style.textContent = `
         /* Improve touch targets on mobile */
         button, a {
             min-height: 44px;
-            min-width: 44px;
         }
         
-        .simple-btn {
-            min-height: 60px;
-        }
-    }
-    
-    /* Prevent layout shift */
-    .partners-slider {
-        min-height: 180px;
-    }
-    
-    @media (max-width: 768px) {
-        .partners-slider {
-            min-height: 150px;
+        .payment-btn {
+            min-height: 80px;
         }
     }
 `;
 document.head.appendChild(style);
-
-// Enhanced error handling
-window.addEventListener('error', function(e) {
-    console.log('Error occurred:', e.error);
-});
-
-// Performance monitoring
-window.addEventListener('load', function() {
-    const loadTime = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
-    console.log('Page load time:', loadTime + 'ms');
-});
 
 // Resize handler for mobile optimizations
 window.addEventListener('resize', function() {
