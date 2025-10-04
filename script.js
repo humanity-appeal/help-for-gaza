@@ -9,17 +9,38 @@ window.addEventListener('load', function() {
     }, 1000);
 });
 
-// Header Scroll Effect
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = 'none';
+// Mobile Menu Functionality
+function initializeMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            const isVisible = navLinks.style.display === 'flex';
+            navLinks.style.display = isVisible ? 'none' : 'flex';
+            
+            // Toggle icon
+            const icon = this.querySelector('i');
+            if (!isVisible) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'white';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.padding = '1rem';
+                navLinks.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                navLinks.style.gap = '0';
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                navLinks.style.display = 'none';
+            }
+        });
     }
-});
+}
 
 // Counter Animation
 function animateCounters() {
@@ -71,58 +92,6 @@ function animateProgressBar() {
     }, 15);
 }
 
-// FAQ Accordion
-function initializeFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all items
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
-            });
-            
-            // Open current if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
-    });
-}
-
-// Partners Slider - Improved seamless loop
-function initializePartnersSlider() {
-    const track = document.querySelector('.partners-track');
-    const logos = document.querySelectorAll('.partner-logo');
-    
-    // Duplicate logos for seamless loop
-    const logosArray = Array.from(logos);
-    logosArray.forEach(logo => {
-        const clone = logo.cloneNode(true);
-        track.appendChild(clone);
-    });
-    
-    // Reset animation when it completes to create seamless loop
-    track.addEventListener('animationiteration', () => {
-        track.style.animation = 'none';
-        void track.offsetWidth; // Trigger reflow
-        track.style.animation = null;
-    });
-    
-    // Pause animation on hover
-    track.addEventListener('mouseenter', () => {
-        track.style.animationPlayState = 'paused';
-    });
-    
-    track.addEventListener('mouseleave', () => {
-        track.style.animationPlayState = 'running';
-    });
-}
-
 // Scroll to Donate Section
 function scrollToDonate() {
     document.getElementById('donate').scrollIntoView({
@@ -131,77 +100,15 @@ function scrollToDonate() {
     });
 }
 
-// Mobile Menu Functionality
-function initializeMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('show');
-            // Toggle icon
-            const icon = this.querySelector('i');
-            if (navLinks.classList.contains('show')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-    }
-    
-    // Close mobile menu when clicking on a link
-    const navLinksArray = document.querySelectorAll('.nav-link');
-    navLinksArray.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('show');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-    });
-}
-
-// Intersection Observer for animations
-function initializeAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -20px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .testimonial-card, .faq-item');
-    
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        observer.observe(el);
-    });
-}
-
 // Real-time collection amount update (simulated)
 function simulateRealTimeDonations() {
     const collectionAmount = document.getElementById('collectionAmount');
     let currentAmount = parseInt(collectionAmount.getAttribute('data-count'));
     
-    // Simulate new donations every 20 seconds
     setInterval(() => {
-        const randomDonation = Math.floor(Math.random() * 30) + 5;
+        const randomDonation = Math.floor(Math.random() * 20) + 5;
         currentAmount += randomDonation;
         
-        // Ensure we don't exceed target
         if (currentAmount > 500000) {
             currentAmount = 500000;
         }
@@ -209,7 +116,6 @@ function simulateRealTimeDonations() {
         collectionAmount.setAttribute('data-count', currentAmount);
         collectionAmount.textContent = formatNumber(currentAmount);
         
-        // Update progress bar
         const targetAmount = 500000;
         const percentage = (currentAmount / targetAmount) * 100;
         const progressFill = document.getElementById('progressFill');
@@ -220,29 +126,9 @@ function simulateRealTimeDonations() {
     }, 20000);
 }
 
-// Smooth scrolling for all anchor links
-function initializeSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
-    initializeSmoothScrolling();
-    initializeFAQ();
-    initializePartnersSlider();
-    initializeAnimations();
     
     // Initialize counters and progress bar
     setTimeout(() => {
@@ -253,71 +139,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start real-time donation simulation
     setTimeout(simulateRealTimeDonations, 3000);
     
-    // Add click event to urgent alert button
-    const urgentAlertBtn = document.querySelector('.urgent-alert-btn');
-    if (urgentAlertBtn) {
-        urgentAlertBtn.addEventListener('click', scrollToDonate);
-    }
-    
-    // Add click event to floating donate button
-    const floatingBtn = document.querySelector('.floating-btn');
-    if (floatingBtn) {
-        floatingBtn.addEventListener('click', scrollToDonate);
-    }
-    
-    // Add click event to final CTA button
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton) {
-        ctaButton.addEventListener('click', scrollToDonate);
-    }
+    // Add click events to all donate buttons
+    const donateButtons = document.querySelectorAll('.urgent-alert-btn, .floating-btn, .cta-button');
+    donateButtons.forEach(button => {
+        button.addEventListener('click', scrollToDonate);
+    });
 });
 
-// Add CSS for animations and mobile optimizations
-const style = document.createElement('style');
-style.textContent = `
-    .crisis-card.animate-in,
-    .trust-item.animate-in,
-    .impact-card.animate-in,
-    .testimonial-card.animate-in,
-    .faq-item.animate-in {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     
-    .nav-links {
-        transition: all 0.3s ease;
-    }
-    
-    @media (max-width: 768px) {
-        .nav-links {
-            display: none;
-        }
-        
-        .nav-links.show {
-            display: flex;
-        }
-        
-        /* Improve touch targets on mobile */
-        button, a {
-            min-height: 44px;
-        }
-        
-        .payment-btn {
-            min-height: 80px;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Resize handler for mobile optimizations
-window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-        const navLinks = document.querySelector('.nav-links');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const icon = mobileMenuBtn?.querySelector('i');
-        
-        if (navLinks) navLinks.classList.remove('show');
-        if (icon) {
+    if (window.innerWidth <= 768 && navLinks.style.display === 'flex') {
+        if (!event.target.closest('.nav-links') && !event.target.closest('.mobile-menu-btn')) {
+            navLinks.style.display = 'none';
+            const icon = mobileMenuBtn.querySelector('i');
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
         }
