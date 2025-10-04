@@ -6,13 +6,13 @@ window.addEventListener('load', function() {
         setTimeout(() => {
             loadingScreen.style.display = 'none';
         }, 500);
-    }, 1500);
+    }, 1000);
 });
 
 // Header Scroll Effect
 window.addEventListener('scroll', function() {
     const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
+    if (window.scrollY > 50) {
         header.style.background = 'rgba(255, 255, 255, 0.98)';
         header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     } else {
@@ -27,7 +27,7 @@ function animateCounters() {
     
     counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 2000;
+        const duration = 1500;
         const step = target / (duration / 16);
         let current = 0;
         
@@ -68,7 +68,7 @@ function animateProgressBar() {
         if (progress >= percentage) {
             clearInterval(interval);
         }
-    }, 20);
+    }, 15);
 }
 
 // FAQ Accordion
@@ -79,20 +79,22 @@ function initializeFAQ() {
         const question = item.querySelector('.faq-question');
         
         question.addEventListener('click', () => {
-            // Close all other items
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
             faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
+                otherItem.classList.remove('active');
             });
             
-            // Toggle current item
-            item.classList.toggle('active');
+            // Open current if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
         });
     });
 }
 
-// Partners Slider Animation
+// Partners Slider - Improved with pause on hover
 function initializePartnersSlider() {
     const track = document.querySelector('.partners-track');
     const logos = document.querySelectorAll('.partner-logo');
@@ -102,12 +104,22 @@ function initializePartnersSlider() {
         const clone = logo.cloneNode(true);
         track.appendChild(clone);
     });
+    
+    // Pause animation on hover
+    track.addEventListener('mouseenter', () => {
+        track.style.animationPlayState = 'paused';
+    });
+    
+    track.addEventListener('mouseleave', () => {
+        track.style.animationPlayState = 'running';
+    });
 }
 
 // Scroll to Donate Section
 function scrollToDonate() {
     document.getElementById('donate').scrollIntoView({
-        behavior: 'smooth'
+        behavior: 'smooth',
+        block: 'start'
     });
 }
 
@@ -119,6 +131,15 @@ function initializeMobileMenu() {
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', function() {
             navLinks.classList.toggle('show');
+            // Toggle icon
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
     }
     
@@ -128,6 +149,9 @@ function initializeMobileMenu() {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
                 navLinks.classList.remove('show');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         });
     });
@@ -137,7 +161,7 @@ function initializeMobileMenu() {
 function initializeAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -20px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -149,12 +173,12 @@ function initializeAnimations() {
     }, observerOptions);
 
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .testimonial-card');
+    const animateElements = document.querySelectorAll('.crisis-card, .trust-item, .impact-card, .testimonial-card, .faq-item');
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         observer.observe(el);
     });
 }
@@ -164,9 +188,9 @@ function simulateRealTimeDonations() {
     const collectionAmount = document.getElementById('collectionAmount');
     let currentAmount = parseInt(collectionAmount.getAttribute('data-count'));
     
-    // Simulate new donations every 30 seconds
+    // Simulate new donations every 20 seconds
     setInterval(() => {
-        const randomDonation = Math.floor(Math.random() * 50) + 10;
+        const randomDonation = Math.floor(Math.random() * 30) + 5;
         currentAmount += randomDonation;
         
         // Ensure we don't exceed target
@@ -185,7 +209,7 @@ function simulateRealTimeDonations() {
         
         progressFill.style.width = `${percentage}%`;
         progressText.textContent = `${Math.round(percentage)}% লক্ষ্য অর্জিত`;
-    }, 30000);
+    }, 20000);
 }
 
 // Smooth scrolling for all anchor links
@@ -204,6 +228,14 @@ function initializeSmoothScrolling() {
     });
 }
 
+// Touch optimization for mobile
+function initializeTouchOptimization() {
+    // Add touch-friendly classes
+    document.querySelectorAll('button, a').forEach(element => {
+        element.classList.add('touch-optimized');
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
@@ -211,36 +243,49 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFAQ();
     initializePartnersSlider();
     initializeAnimations();
+    initializeTouchOptimization();
     
-    // Initialize counters and progress bar after a delay
+    // Initialize counters and progress bar
     setTimeout(() => {
         animateCounters();
         animateProgressBar();
-    }, 1000);
+    }, 800);
     
-    // Start real-time donation simulation after 5 seconds
-    setTimeout(simulateRealTimeDonations, 5000);
+    // Start real-time donation simulation
+    setTimeout(simulateRealTimeDonations, 3000);
     
     // Add click event to urgent alert button
     const urgentAlertBtn = document.querySelector('.urgent-alert-btn');
     if (urgentAlertBtn) {
         urgentAlertBtn.addEventListener('click', scrollToDonate);
     }
+    
+    // Add click event to floating donate button
+    const floatingBtn = document.querySelector('.floating-btn');
+    if (floatingBtn) {
+        floatingBtn.addEventListener('click', scrollToDonate);
+    }
 });
 
-// Add CSS for animations
+// Add CSS for animations and mobile optimizations
 const style = document.createElement('style');
 style.textContent = `
     .crisis-card.animate-in,
     .trust-item.animate-in,
     .impact-card.animate-in,
-    .testimonial-card.animate-in {
+    .testimonial-card.animate-in,
+    .faq-item.animate-in {
         opacity: 1 !important;
         transform: translateY(0) !important;
     }
     
     .nav-links {
         transition: all 0.3s ease;
+    }
+    
+    .touch-optimized {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
     
     @media (max-width: 768px) {
@@ -250,6 +295,27 @@ style.textContent = `
         
         .nav-links.show {
             display: flex;
+        }
+        
+        /* Improve touch targets on mobile */
+        button, a {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .simple-btn {
+            min-height: 60px;
+        }
+    }
+    
+    /* Prevent layout shift */
+    .partners-slider {
+        min-height: 180px;
+    }
+    
+    @media (max-width: 768px) {
+        .partners-slider {
+            min-height: 150px;
         }
     }
 `;
@@ -264,4 +330,19 @@ window.addEventListener('error', function(e) {
 window.addEventListener('load', function() {
     const loadTime = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
     console.log('Page load time:', loadTime + 'ms');
+});
+
+// Resize handler for mobile optimizations
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const icon = mobileMenuBtn?.querySelector('i');
+        
+        if (navLinks) navLinks.classList.remove('show');
+        if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    }
 });
