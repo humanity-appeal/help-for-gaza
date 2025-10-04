@@ -14,17 +14,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-orange: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    --gradient-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-[data-theme="dark"] {
-    --text: #f8fafc;
-    --text-light: #cbd5e1;
-    --bg: #0f172a;
-    --bg-light: #1e293b;
-    --bg-dark: #020617;
-    --border: #334155;
+    --gradient-red: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
 }
 
 * {
@@ -53,7 +43,7 @@ body {
 
 /* Compact Sections */
 .section-compact {
-    padding: 60px 0;
+    padding: 50px 0;
 }
 
 /* Mobile Grid System */
@@ -143,7 +133,7 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--primary);
     background: var(--gradient);
@@ -216,7 +206,7 @@ body {
     background-position: center;
     background-attachment: scroll;
     color: white;
-    padding: 120px 0 60px;
+    padding: 100px 0 50px;
     position: relative;
     overflow: hidden;
 }
@@ -244,7 +234,7 @@ body {
 }
 
 .hero-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1.2rem;
     line-height: 1.3;
@@ -279,8 +269,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
-    background: linear-gradient(45deg, #dc2626, #ef4444, #dc2626);
-    background-size: 200% 200%;
+    background: var(--gradient-red);
     color: white;
     padding: 1rem 1.8rem;
     border: none;
@@ -291,25 +280,10 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
     margin-bottom: 2.5rem;
-    animation: pulse 2s infinite, gradient-shift 3s ease infinite;
+    animation: pulse 2s infinite;
     font-family: 'Hind Siliguri', sans-serif;
     position: relative;
     overflow: hidden;
-}
-
-.urgent-alert-btn:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.urgent-alert-btn:hover:before {
-    left: 100%;
 }
 
 .urgent-alert-btn:hover {
@@ -326,12 +300,12 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    margin: 2.5rem 0;
+    margin: 2rem 0;
 }
 
 .stat-item {
     text-align: center;
-    padding: 1.2rem;
+    padding: 1rem;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     backdrop-filter: blur(10px);
@@ -339,7 +313,7 @@ body {
 }
 
 .stat-number {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
@@ -351,9 +325,9 @@ body {
 
 .progress-bar {
     background: rgba(255, 255, 255, 0.2);
-    height: 10px;
-    border-radius: 5px;
-    margin: 2rem 0;
+    height: 8px;
+    border-radius: 4px;
+    margin: 1.5rem 0;
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -362,51 +336,31 @@ body {
 .progress-fill {
     background: linear-gradient(45deg, #ffd700, #ff6b6b);
     height: 100%;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: width 2s ease;
     width: 0%;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-fill:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
 }
 
 .progress-text {
     text-align: center;
     font-weight: 600;
     margin-top: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 /* Bengali Digits */
 .bengali-digits {
     font-family: 'Hind Siliguri', sans-serif;
-    font-feature-settings: "numr";
-    font-variant-numeric: numeric;
 }
 
 /* Sections Common */
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .section-header h2 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.8rem;
     background: var(--gradient);
@@ -415,7 +369,7 @@ body {
 }
 
 .section-header p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-light);
     max-width: 600px;
     margin: 0 auto;
@@ -464,11 +418,6 @@ body {
     margin: 0 auto 1rem;
     font-size: 1.5rem;
     color: white;
-    transition: transform 0.3s ease;
-}
-
-.crisis-card:hover .crisis-icon {
-    transform: scale(1.1);
 }
 
 .crisis-card h3 {
@@ -494,18 +443,262 @@ body {
     display: inline-block;
 }
 
+/* Impact Section */
+.impact {
+    background: var(--bg);
+}
+
+.impact-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.impact-amount {
+    background: var(--gradient);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.impact-content {
+    padding: 1.5rem;
+}
+
+.impact-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+}
+
+.impact-content p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.impact-content ul {
+    list-style: none;
+    text-align: left;
+}
+
+.impact-content li {
+    padding: 0.4rem 0;
+    color: var(--text-light);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.impact-content li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Main Donation Section */
+.donation-main {
+    background: var(--gradient);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.donation-main:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+}
+
+.donation-main .section-header h2 {
+    background: none;
+    -webkit-text-fill-color: white;
+    color: white;
+}
+
+.donation-main .section-header p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.donation-main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.payment-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.payment-btn {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 16px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.payment-icon {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    flex-shrink: 0;
+}
+
+.payment-icon img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.payment-info {
+    flex: 1;
+}
+
+.payment-info h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.payment-info p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.payment-arrow {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+.payment-btn:hover .payment-arrow {
+    transform: translateX(5px);
+    opacity: 1;
+}
+
+.donation-note {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 1.5rem;
+}
+
+.note-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.note-content i {
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+
+.note-content p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.donation-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.feature-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.feature-content p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
 /* Trust Section */
 .trust {
-    background: var(--bg);
+    background: var(--bg-light);
 }
 
 .trust-item {
     text-align: center;
     padding: 1.5rem 1rem;
-    background: var(--bg-light);
+    background: var(--bg);
     border-radius: 12px;
     transition: transform 0.3s ease;
     border: 1px solid var(--border);
+    box-shadow: var(--shadow);
 }
 
 .trust-item:hover {
@@ -515,7 +708,7 @@ body {
 .trust-icon {
     width: 60px;
     height: 60px;
-    background: var(--bg);
+    background: var(--bg-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -524,13 +717,6 @@ body {
     font-size: 1.5rem;
     color: var(--primary);
     border: 2px solid var(--border);
-    transition: all 0.3s ease;
-}
-
-.trust-item:hover .trust-icon {
-    background: var(--gradient);
-    color: white;
-    border-color: var(--primary);
 }
 
 .trust-item h3 {
@@ -544,55 +730,20 @@ body {
     font-size: 0.9rem;
 }
 
-.verification-badge {
-    background: var(--gradient);
-    color: white;
-    padding: 2rem;
-    border-radius: 16px;
-    text-align: center;
-    max-width: 500px;
-    margin: 2rem auto 0;
-    box-shadow: var(--shadow);
-}
-
-.badge-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.badge-content i {
-    font-size: 2.5rem;
-    opacity: 0.9;
-}
-
-.badge-content h4 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-}
-
-.badge-content p {
-    opacity: 0.9;
-    font-size: 0.9rem;
-}
-
 /* Partners Section */
 .partners {
-    background: var(--bg-light);
+    background: var(--bg);
 }
 
-.partners-slider {
+.partners-container {
     overflow: hidden;
     position: relative;
-    padding: 2rem 0;
 }
 
 .partners-track {
     display: flex;
-    animation: slide 30s linear infinite;
-    gap: 1.5rem;
-    padding: 0 1rem;
+    gap: 2rem;
+    animation: slide 40s linear infinite;
 }
 
 .partner-logo {
@@ -600,9 +751,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 150px;
+    min-width: 180px;
     padding: 1.5rem;
-    background: var(--bg);
+    background: var(--bg-light);
     border-radius: 12px;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
@@ -616,33 +767,27 @@ body {
 }
 
 .partner-logo img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
     margin-bottom: 0.8rem;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-}
-
-.partner-logo:hover img {
-    filter: grayscale(0%);
 }
 
 .partner-logo span {
     font-weight: 600;
     color: var(--text);
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 @keyframes slide {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-150px * 5 - 1.5rem * 5)); }
+    100% { transform: translateX(calc(-180px * 5 - 2rem * 5)); }
 }
 
 /* Testimonials Section */
 .testimonials {
-    background: var(--bg);
+    background: var(--bg-light);
 }
 
 .testimonials-grid {
@@ -652,13 +797,12 @@ body {
 }
 
 .testimonial-card {
-    background: var(--bg-light);
+    background: var(--bg);
     padding: 2rem 1.5rem;
     border-radius: 16px;
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
     transition: transform 0.3s ease;
-    position: relative;
 }
 
 .testimonial-card:hover {
@@ -716,248 +860,6 @@ body {
 .author-info span {
     font-size: 0.8rem;
     color: var(--text-light);
-}
-
-/* Simplified Donation Section */
-.donation-simple {
-    background: var(--gradient);
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.donation-simple:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
-    background-size: cover;
-}
-
-.donation-simple .section-header h2 {
-    background: none;
-    -webkit-text-fill-color: white;
-    color: white;
-}
-
-.donation-simple .section-header p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.simple-payment-buttons {
-    gap: 1rem;
-    max-width: 800px;
-    margin: 0 auto 2.5rem;
-    position: relative;
-    z-index: 2;
-}
-
-.simple-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    padding: 1.5rem;
-    border-radius: 16px;
-    text-decoration: none;
-    color: white;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.simple-btn:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.simple-btn:hover:before {
-    left: 100%;
-}
-
-.simple-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.payment-logo-img {
-    width: 50px;
-    height: 50px;
-    background: white;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.6rem;
-    flex-shrink: 0;
-}
-
-.payment-logo-img img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.btn-content {
-    flex: 1;
-}
-
-.btn-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-}
-
-.btn-subtitle {
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.btn-arrow {
-    font-size: 1rem;
-    opacity: 0.7;
-    transition: transform 0.3s ease;
-}
-
-.simple-btn:hover .btn-arrow {
-    transform: translateX(3px);
-    opacity: 1;
-}
-
-.donation-note {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    padding: 1.5rem;
-    border-radius: 12px;
-    max-width: 800px;
-    margin: 0 auto;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    z-index: 2;
-}
-
-.donation-note-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.8rem;
-}
-
-.donation-note-content i {
-    font-size: 1.2rem;
-    margin-top: 0.1rem;
-    opacity: 0.9;
-    flex-shrink: 0;
-}
-
-.donation-note p {
-    margin: 0;
-    line-height: 1.5;
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-/* Impact Section */
-.impact {
-    background: var(--bg-light);
-}
-
-.impact-card {
-    background: var(--bg);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    border: 1px solid var(--border);
-    text-align: center;
-    position: relative;
-}
-
-.impact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.impact-amount {
-    background: var(--gradient);
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    position: relative;
-    overflow: hidden;
-}
-
-.impact-amount:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.impact-card:hover .impact-amount:after {
-    transform: translateX(100%);
-}
-
-.impact-content {
-    padding: 1.5rem;
-}
-
-.impact-content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    color: var(--text);
-}
-
-.impact-content p {
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-    font-size: 0.9rem;
-}
-
-.impact-content ul {
-    list-style: none;
-    text-align: left;
-}
-
-.impact-content li {
-    padding: 0.4rem 0;
-    color: var(--text-light);
-    position: relative;
-    padding-left: 1.5rem;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-}
-
-.impact-content li:last-child {
-    border-bottom: none;
-}
-
-.impact-content li:before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: bold;
-    font-size: 1rem;
 }
 
 /* FAQ Section */
@@ -1030,11 +932,56 @@ body {
     max-height: 200px;
 }
 
+/* Final CTA Section */
+.final-cta {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--gradient);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+}
+
 /* Footer */
 .footer {
     background: var(--bg-dark);
     color: white;
-    padding: 60px 0 20px;
+    padding: 50px 0 20px;
 }
 
 .footer-content {
@@ -1108,7 +1055,6 @@ body {
 
 .footer-section ul li a:hover {
     color: white;
-    transform: translateX(3px);
 }
 
 .contact-info p {
@@ -1207,7 +1153,7 @@ body {
     }
 
     .hero {
-        padding: 100px 0 40px;
+        padding: 90px 0 40px;
     }
 
     .hero-title {
@@ -1221,7 +1167,7 @@ body {
     .hero-stats {
         grid-template-columns: 1fr;
         gap: 0.8rem;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
     }
 
     .stat-item {
@@ -1244,14 +1190,6 @@ body {
         padding: 1.2rem 0.8rem;
     }
 
-    .crisis-icon,
-    .trust-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
-    }
-
     .section-header {
         margin-bottom: 2rem;
     }
@@ -1264,27 +1202,40 @@ body {
         font-size: 1rem;
     }
 
-    .simple-payment-buttons {
+    /* Donation section mobile layout */
+    .donation-main-content {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .payment-buttons {
         gap: 0.8rem;
     }
 
-    .simple-btn {
+    .payment-btn {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .payment-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .payment-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .payment-info p {
+        font-size: 0.85rem;
+    }
+
+    .donation-features {
+        gap: 1rem;
+    }
+
+    .feature-item {
         padding: 1.2rem;
-        gap: 0.8rem;
-    }
-
-    .payment-logo-img {
-        width: 45px;
-        height: 45px;
-    }
-
-    .btn-title {
-        font-size: 1rem;
-    }
-
-    .btn-subtitle {
-        font-size: 0.8rem;
     }
 
     .footer-content {
@@ -1293,12 +1244,12 @@ body {
     }
 
     .partners-track {
-        animation: slide-mobile 25s linear infinite;
+        animation: slide-mobile 35s linear infinite;
         gap: 1rem;
     }
 
     .partner-logo {
-        min-width: 130px;
+        min-width: 140px;
         padding: 1.2rem;
     }
 
@@ -1309,7 +1260,7 @@ body {
 
     @keyframes slide-mobile {
         0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-130px * 5 - 1rem * 5)); }
+        100% { transform: translateX(calc(-140px * 5 - 1rem * 5)); }
     }
     
     .testimonials-grid {
@@ -1321,14 +1272,16 @@ body {
         padding: 1.5rem 1.2rem;
     }
     
-    .badge-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.8rem;
+    .final-cta {
+        padding: 40px 0;
     }
     
-    .verification-badge {
-        padding: 1.5rem;
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .cta-content p {
+        font-size: 1rem;
     }
     
     .floating-donate {
@@ -1363,8 +1316,6 @@ body {
     .urgent-alert-btn {
         padding: 0.8rem 1.2rem;
         font-size: 0.9rem;
-        flex-direction: column;
-        gap: 0.3rem;
     }
     
     .hero-badge {
@@ -1373,7 +1324,17 @@ body {
     }
     
     .progress-bar {
-        margin: 1.5rem 0;
+        margin: 1rem 0;
+    }
+    
+    .payment-btn {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    
+    .payment-info {
+        text-align: center;
     }
 }
 
@@ -1385,7 +1346,7 @@ body {
     }
     
     .section-compact {
-        padding: 80px 0;
+        padding: 60px 0;
     }
 }
 
@@ -1393,11 +1354,3 @@ body {
 .text-center {
     text-align: center;
 }
-
-.mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mb-3 { margin-bottom: 3rem; }
-
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-.mt-3 { margin-top: 3rem; }
