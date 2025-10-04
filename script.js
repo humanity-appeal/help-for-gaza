@@ -2,7 +2,7 @@
 class PersistentFundCollection {
     constructor() {
         this.targetAmount = 500000;
-        this.baseAmount = 12750; // Starting amount
+        this.baseAmount = 72750; // Starting amount
         this.storageKey = 'gazaFundData';
         this.init();
     }
