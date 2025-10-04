@@ -1,93 +1,39 @@
-// Persistent Fund Collection System with Higher Base Amount
-class PersistentFundCollection {
+// Loading Screen - Simple and Reliable
+window.addEventListener('load', function() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }, 1000);
+});
+
+// Simple Fund Collection System
+class SimpleFundCollection {
     constructor() {
         this.targetAmount = 500000;
-        this.baseAmount = 187650; // Much higher starting amount - ৳1,87,650
-        this.storageKey = 'gazaFundData';
+        this.baseAmount = 187650;
         this.init();
     }
 
     init() {
-        this.loadPersistentData();
         this.updateDisplay();
-        this.startRealTimeUpdates();
         this.animateNumbers();
         this.updateDaysCount();
+        this.startRealTimeUpdates();
     }
 
-    loadPersistentData() {
-        const savedData = localStorage.getItem(this.storageKey);
-        
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            
-            // Check if data is from today
-            const today = new Date().toDateString();
-            if (data.date === today) {
-                this.baseAmount = data.amount;
-            } else {
-                // New day - increase amount and save
-                this.increaseAmountForNewDay();
-            }
-        } else {
-            // First time - initialize with higher base amount
-            this.savePersistentData();
-        }
-    }
-
-    increaseAmountForNewDay() {
-        // Increase by 1-4% daily (smaller percentage since base is larger)
-        const increasePercent = 0.01 + (Math.random() * 0.03);
-        const increaseAmount = Math.floor(this.baseAmount * increasePercent);
-        this.baseAmount += increaseAmount;
-        
-        // Ensure we don't exceed target
-        if (this.baseAmount > this.targetAmount) {
-            this.baseAmount = this.targetAmount;
-        }
-        
-        this.savePersistentData();
-    }
-
-    savePersistentData() {
-        const data = {
-            amount: this.baseAmount,
-            date: new Date().toDateString(),
-            lastUpdated: Date.now()
-        };
-        localStorage.setItem(this.storageKey, JSON.stringify(data));
-    }
-
-    getDaysUntilMonthEnd() {
+    updateDaysCount() {
         const now = new Date();
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
         const diffTime = endOfMonth - now;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return Math.max(0, diffDays);
-    }
-
-    updateDaysCount() {
-        const daysElement = document.querySelector('[data-count="25"]');
+        
+        const daysElement = document.querySelector('.stat-number[data-count="25"]');
         if (daysElement) {
-            const daysLeft = this.getDaysUntilMonthEnd();
-            daysElement.setAttribute('data-count', daysLeft);
-            daysElement.textContent = this.formatToBengaliDigits(daysLeft);
+            daysElement.textContent = this.formatToBengaliDigits(diffDays);
         }
-    }
-
-    startRealTimeUpdates() {
-        // Larger random increments to simulate real-time donations
-        setInterval(() => {
-            const randomIncrement = Math.floor(Math.random() * 200) + 50; // ৳50-250 increments
-            this.baseAmount += randomIncrement;
-            
-            if (this.baseAmount > this.targetAmount) {
-                this.baseAmount = this.targetAmount;
-            }
-            
-            this.savePersistentData();
-            this.updateDisplay();
-        }, 45000); // Every 45 seconds
     }
 
     updateDisplay() {
@@ -97,13 +43,12 @@ class PersistentFundCollection {
         
         if (collectionElement) {
             collectionElement.textContent = this.formatToBengaliDigits(this.baseAmount);
-            collectionElement.setAttribute('data-count', this.baseAmount);
         }
         
         if (progressFill && progressText) {
             const progress = (this.baseAmount / this.targetAmount) * 100;
-            progressFill.style.width = `${Math.min(progress, 100)}%`;
-            progressText.textContent = `${Math.min(progress, 100).toFixed(1)}% লক্ষ্য অর্জিত`;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${progress.toFixed(1)}% লক্ষ্য অর্জিত`;
         }
     }
 
@@ -113,23 +58,19 @@ class PersistentFundCollection {
     }
 
     animateNumbers() {
-        const counters = document.querySelectorAll('.stat-number[data-count]');
+        const counters = document.querySelectorAll('.stat-number');
         
         counters.forEach(counter => {
             if (counter.id !== 'collectionAmount') {
-                const target = parseInt(counter.getAttribute('data-count'));
+                const target = parseInt(counter.textContent) || parseInt(counter.getAttribute('data-count'));
                 this.animateCounter(counter, target, 1500);
-            } else {
-                // For collection amount, animate from a reasonable starting point
-                const startAmount = Math.floor(this.baseAmount * 0.7); // Start from 70% of current amount
-                this.animateCounter(counter, this.baseAmount, 2000, startAmount);
             }
         });
     }
 
-    animateCounter(element, target, duration, startFrom = 0) {
-        let start = startFrom;
-        const increment = (target - start) / (duration / 16);
+    animateCounter(element, target, duration) {
+        let start = 0;
+        const increment = target / (duration / 16);
         
         const timer = setInterval(() => {
             start += increment;
@@ -142,11 +83,114 @@ class PersistentFundCollection {
         }, 16);
     }
 
-    // Method to manually reset data if needed (for testing)
-    resetData() {
-        localStorage.removeItem(this.storageKey);
-        this.baseAmount = 187650;
-        this.savePersistentData();
-        this.updateDisplay();
+    startRealTimeUpdates() {
+        setInterval(() => {
+            const randomIncrement = Math.floor(Math.random() * 100) + 50;
+            this.baseAmount += randomIncrement;
+            
+            if (this.baseAmount > this.targetAmount) {
+                this.baseAmount = this.targetAmount;
+            }
+            
+            this.updateDisplay();
+        }, 30000);
     }
 }
+
+// Mobile Menu Functionality
+function initializeMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function() {
+            const isVisible = navLinks.style.display === 'flex';
+            navLinks.style.display = isVisible ? 'none' : 'flex';
+        });
+    }
+}
+
+// FAQ Accordion
+function initializeFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+}
+
+// Scroll to Donate Section
+function scrollToDonate() {
+    const donateSection = document.getElementById('donate');
+    if (donateSection) {
+        donateSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize fund collection
+    window.fundCollection = new SimpleFundCollection();
+    
+    // Initialize other components
+    initializeMobileMenu();
+    initializeFAQ();
+    
+    // Add click events to donate buttons
+    const donateButtons = document.querySelectorAll('.urgent-alert-btn, .floating-btn, .cta-button');
+    donateButtons.forEach(button => {
+        button.addEventListener('click', scrollToDonate);
+    });
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+
+// Add basic CSS for mobile menu
+const style = document.createElement('style');
+style.textContent = `
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links.show {
+            display: flex;
+        }
+    }
+`;
+document.head.appendChild(style);
